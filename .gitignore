@@ -1,0 +1,15 @@
+# Flutter/Dart
+.dart_tool/
+.packages
+build/
+
+# IDE
+.idea/
+.vscode/
+
+# Env (keep local secrets out of git)
+.env
+
+#
+.flutter-plugins-dependencies
+*.iml
