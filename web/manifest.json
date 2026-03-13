@@ -1,11 +1,11 @@
 {
-    "name": "p2p_app",
-    "short_name": "p2p_app",
+    "name": "LlamaMe",
+    "short_name": "LlamaMe",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#6C3FE4",
+    "theme_color": "#6C3FE4",
+    "description": "LlamaMe",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
