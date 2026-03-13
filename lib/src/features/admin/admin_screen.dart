@@ -229,14 +229,15 @@ class _RequestCardState extends ConsumerState<_RequestCard> {
             ),
             if (r.isPending) ...[
               const SizedBox(height: 12),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+              Wrap(
+                alignment: WrapAlignment.end,
+                spacing: 8,
+                runSpacing: 8,
                 children: [
                   TextButton(
                     onPressed: _loading ? null : () => _resolve(false),
                     child: const Text('Reject'),
                   ),
-                  const SizedBox(width: 8),
                   FilledButton(
                     onPressed: _loading ? null : () => _resolve(true),
                     child: const Text('Approve'),
@@ -765,18 +766,24 @@ class _AdFormDialogState extends ConsumerState<_AdFormDialog> {
               // Type selector
               Text('Ad Type', style: theme.textTheme.labelLarge),
               const SizedBox(height: 8),
-              SegmentedButton<AdType>(
-                segments: const [
-                  ButtonSegment(value: AdType.banner, label: Text('Banner')),
-                  ButtonSegment(value: AdType.hero, label: Text('Hero')),
-                  ButtonSegment(
-                      value: AdType.interstitial, label: Text('Interst.')),
-                  ButtonSegment(value: AdType.popup, label: Text('Pop-up')),
+              Wrap(
+                spacing: 8,
+                runSpacing: 4,
+                children: [
+                  for (final entry in const [
+                    (AdType.banner, 'Banner'),
+                    (AdType.hero, 'Hero'),
+                    (AdType.interstitial, 'Interstitial'),
+                    (AdType.popup, 'Pop-up'),
+                  ])
+                    ChoiceChip(
+                      label: Text(entry.$2),
+                      selected: _selectedType == entry.$1,
+                      onSelected: (_) =>
+                          setState(() => _selectedType = entry.$1),
+                      showCheckmark: false,
+                    ),
                 ],
-                selected: {_selectedType},
-                onSelectionChanged: (s) =>
-                    setState(() => _selectedType = s.first),
-                showSelectedIcon: false,
               ),
               const SizedBox(height: 16),
 
@@ -849,14 +856,15 @@ class _AdFormDialogState extends ConsumerState<_AdFormDialog> {
               const SizedBox(height: 20),
 
               // Action buttons
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+              Wrap(
+                alignment: WrapAlignment.end,
+                spacing: 8,
+                runSpacing: 8,
                 children: [
                   TextButton(
                     onPressed: _saving ? null : () => Navigator.pop(context),
                     child: const Text('Cancel'),
                   ),
-                  const SizedBox(width: 8),
                   FilledButton(
                     onPressed: _saving ? null : _save,
                     child: Text(_saving

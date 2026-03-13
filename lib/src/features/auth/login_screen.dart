@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:url_launcher/url_launcher.dart';
+//import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/supabase_client.dart';
 
@@ -16,10 +16,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _loading = false;
+  bool _obscurePassword = true;
 
   // ⚠️ Replace with your actual GitHub releases URL
-  static const _apkDownloadUrl =
-      'https://github.com/YOUR_USER/YOUR_REPO/releases/latest';
+  /* static const _apkDownloadUrl =
+      'https://github.com/YOUR_USER/YOUR_REPO/releases/latest';*/
 
   @override
   void dispose() {
@@ -54,12 +55,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     }
   }
 
-  Future<void> _launchApkDownload() async {
+  /* Future<void> _launchApkDownload() async {
     final uri = Uri.parse(_apkDownloadUrl);
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     }
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -83,8 +84,22 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               const SizedBox(height: 12),
               TextField(
                 controller: _passwordController,
-                obscureText: true,
-                decoration: const InputDecoration(labelText: 'Contraseña'),
+                obscureText: _obscurePassword,
+                decoration: InputDecoration(
+                  labelText: 'Contraseña',
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscurePassword
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_outlined,
+                    ),
+                    onPressed: () =>
+                        setState(() => _obscurePassword = !_obscurePassword),
+                    tooltip: _obscurePassword
+                        ? 'Mostrar contraseña'
+                        : 'Ocultar contraseña',
+                  ),
+                ),
               ),
               const SizedBox(height: 20),
               FilledButton(
@@ -98,7 +113,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               ),
 
               // ── Divider ────────────────────────────────────────────
-              const SizedBox(height: 24),
+              /* const SizedBox(height: 24),
               Row(
                 children: [
                   const Expanded(child: Divider()),
@@ -204,7 +219,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                   ),
                 ),
-              ),
+              ),*/
             ],
           ),
         ),

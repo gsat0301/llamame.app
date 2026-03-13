@@ -44,23 +44,27 @@ class _HomeShellState extends ConsumerState<HomeShell> {
             data: (profile) {
               final mode = ref.watch(appModeProvider);
               final canBeProvider = profile.isProvider;
-              return Padding(
-                padding: const EdgeInsets.only(right: 4),
-                child: SegmentedButton<AppMode>(
-                  segments: const [
-                    ButtonSegment(
-                        value: AppMode.customer, label: Text('Cliente')),
-                    ButtonSegment(
-                        value: AppMode.provider, label: Text('Proveedor')),
-                  ],
-                  selected: {mode},
-                  onSelectionChanged: (selection) {
-                    final selected = selection.first;
-                    if (selected == AppMode.provider && !canBeProvider) return;
-                    ref.read(appModeProvider.notifier).state = selected;
-                  },
-                  showSelectedIcon: false,
+              return SegmentedButton<AppMode>(
+                style: ButtonStyle(
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  visualDensity: VisualDensity.compact,
+                  padding: WidgetStateProperty.all(
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
+                  ),
                 ),
+                segments: const [
+                  ButtonSegment(
+                      value: AppMode.customer, label: Text('Cliente')),
+                  ButtonSegment(
+                      value: AppMode.provider, label: Text('Proveedor')),
+                ],
+                selected: {mode},
+                onSelectionChanged: (selection) {
+                  final selected = selection.first;
+                  if (selected == AppMode.provider && !canBeProvider) return;
+                  ref.read(appModeProvider.notifier).state = selected;
+                },
+                showSelectedIcon: false,
               );
             },
             orElse: () => const SizedBox.shrink(),
