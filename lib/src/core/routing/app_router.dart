@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../features/auth/email_verified_screen.dart';
 import '../../features/auth/login_screen.dart';
 import '../../features/auth/signup_screen.dart';
 import '../../features/home/home_shell.dart';
@@ -37,7 +38,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         '/login',
         '/signup',
         '/terms',
-        '/privacy'
+        '/privacy',
+        '/email-verified',
       ];
 
       final goingToPublicRoute = publicRoutes.contains(state.matchedLocation);
@@ -70,6 +72,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/signup',
         builder: (context, state) => const SignupScreen(),
+      ),
+      GoRoute(
+        path: '/email-verified',
+        builder: (context, state) => const EmailVerifiedScreen(),
       ),
       GoRoute(
         path: '/',
